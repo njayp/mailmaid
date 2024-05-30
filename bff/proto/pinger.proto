@@ -6,13 +6,4 @@ service Pinger {
     rpc Ping(Empty) returns (Empty);
 }
 
-service ReverseConnection {
-    rpc Connect(stream Chunk) returns (stream Chunk);
-}
-
-
 message Empty {}
-
-message Chunk {
-    bytes data = 1;
-}

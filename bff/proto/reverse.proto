@@ -1,0 +1,13 @@
+syntax = "proto3";
+package pb;
+option go_package = "./pb";
+
+
+
+service ReverseConnection {
+    rpc Connect(stream Chunk) returns (stream Chunk);
+}
+
+message Chunk {
+    bytes data = 1;
+}

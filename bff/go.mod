@@ -3,6 +3,7 @@ module github.com/njayp/bff
 go 1.21
 
 require (
+	github.com/codingconcepts/env v0.0.0-20200821220118-a8fbf8d84482
 	google.golang.org/grpc v1.64.0
 	google.golang.org/protobuf v1.34.1
 )

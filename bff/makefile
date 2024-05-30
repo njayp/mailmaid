@@ -1,7 +1,7 @@
 # run "make gen" first
 .PHONY: build
 build:
-	./find-run.sh main.go "go build -o output/bin/{{DIR}} {{PATH}}"
+	./build.sh
 
 .PHONY: gen
 gen: proto
@@ -11,18 +11,20 @@ gen: proto
 	go test -v ./...
 
 # grpc
+PROTOCIN=./proto
+PROTOCOUT=./pkg/grpc/pb
 .PHONY: proto
 proto:
-	rm -rf ./pkg/grpc/pb
-	mkdir -p ./pkg/grpc/pb
+	rm -rf ${PROTOCOUT}
+	mkdir -p ${PROTOCOUT}
 	protoc \
-    	-I=./proto \
-    	--proto_path=./proto \
+    	-I=${PROTOCIN} \
+    	--proto_path=${PROTOCIN} \
     	--go_opt=paths=source_relative \
-    	--go_out=./pkg/grpc/pb \
+    	--go_out=${PROTOCOUT} \
     	--go-grpc_opt=paths=source_relative \
-    	--go-grpc_out=./pkg/grpc/pb \
-    	$(shell find ./proto -iname "*.proto") 2>&1 > /dev/null
+    	--go-grpc_out=${PROTOCOUT} \
+    	$(shell find ${PROTOCIN} -iname "*.proto")
 
 REGISTRY=njpowell
 .PHONY: image
